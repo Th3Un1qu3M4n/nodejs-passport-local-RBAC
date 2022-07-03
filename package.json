@@ -5,7 +5,8 @@
   "sourceType": "module",
   "main": "src/app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/app.js",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -34,8 +35,13 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "mongoose": "^6.4.2",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
   }
 }
