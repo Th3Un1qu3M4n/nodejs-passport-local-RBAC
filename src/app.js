@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/User');
 
 const app = express();
@@ -16,6 +17,8 @@ app.use(session({
 
 app.use(passport.initialize())
 app.use(passport.session())
+// passport.use(new LocalStrategy(User.authenticate()));
+passport.use(User.createStrategy());
 
 
 mongoose.connect('mongodb://localhost/passport',{ useNewUrlParser: true})
@@ -25,11 +28,13 @@ mongoose.connect('mongodb://localhost/passport',{ useNewUrlParser: true})
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use('/users', require('./routes/users') );
 app.use('/roles', require('./routes/roles') );
 
 app.get('/', (req, res) => {
-  // console.log(req.user)
   res.send('Hello World!');
 });
 
